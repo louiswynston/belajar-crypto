@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Meta charset: wajib ada agar teks Indonesia terbaca sempurna -->
+  <meta charset="UTF-8" />
+  <!-- Viewport: kunci agar layout responsif di HP/tablet -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Belajar Crypto untuk Pemula</title>
+  <!-- Link ke CSS terpisah — pisah HTML (struktur) dan CSS (gaya) adalah praktik terbaik -->
+  <link rel="stylesheet" href="crypto.css" />
+  <!-- Google Fonts: Inter untuk tampilan modern -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- =============================================
+       NAVBAR
+       Sticky — menempel di atas saat scroll.
+       Dibuat transparan di hero, lalu gelap setelah scroll
+       (dikendalikan JS di bawah dengan kelas .scrolled).
+  ============================================= -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+
+      <!-- Logo teks dengan ikon simbol cryptocurrency -->
+      <a href="#hero" class="navbar__logo">
+        <span class="navbar__logo-icon">₿</span>
+        CryptoLearn
+      </a>
+
+      <!-- Tombol hamburger untuk mobile -->
+      <button class="navbar__toggle" id="menuToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Menu navigasi -->
+      <nav class="navbar__menu" id="navMenu" aria-label="Navigasi utama">
+        <a href="#what-is-crypto">Apa itu Crypto?</a>
+        <a href="#coins">Coin Populer</a>
+        <a href="#how-to-start">Cara Mulai</a>
+        <a href="#risks">Risiko</a>
+        <a href="#newsletter" class="btn btn--accent">Mulai Belajar</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =============================================
+         HERO SECTION
+         Background gelap dengan gradien — gaya khas
+         situs finansial/crypto. Teks terang di atasnya.
+         Terdapat "ticker" harga simulasi di bawah tagline.
+    ============================================= -->
+    <section class="hero" id="hero">
+      <!-- Lapisan partikel/grid dekoratif di latar -->
+      <div class="hero__grid" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <!-- Lencana kecil pengantar -->
+        <span class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Panduan Lengkap untuk Pemula
+        </span>
+
+        <!-- Judul utama: clamp() membuat ukuran font responsif otomatis -->
+        <h1 class="hero__title">
+          Pahami Crypto<br />
+          <span class="hero__title-accent">dari Nol</span>
+        </h1>
+
+        <p class="hero__tagline">
+          Panduan jelas, ringkas, dan jujur tentang aset kripto —
+          dari apa itu Bitcoin hingga cara memulai trading dengan aman.
+        </p>
+
+        <!-- Dua tombol aksi -->
+        <div class="hero__actions">
+          <a href="#what-is-crypto" class="btn btn--accent btn--lg">Mulai Membaca</a>
+          <a href="#coins" class="btn btn--outline-light btn--lg">Lihat Coin Populer</a>
+        </div>
+
+        <!-- Ticker harga simulasi — hanya dekorasi edukatif -->
+        <div class="ticker" aria-label="Contoh harga crypto (simulasi)">
+          <div class="ticker__item">
+            <span class="ticker__symbol">BTC</span>
+            <span class="ticker__price">$67,450</span>
+            <span class="ticker__change ticker__change--up">+2.4%</span>
+          </div>
+          <div class="ticker__divider" aria-hidden="true"></div>
+          <div class="ticker__item">
+            <span class="ticker__symbol">ETH</span>
+            <span class="ticker__price">$3,520</span>
+            <span class="ticker__change ticker__change--up">+1.8%</span>
+          </div>
+          <div class="ticker__divider" aria-hidden="true"></div>
+          <div class="ticker__item">
+            <span class="ticker__symbol">SOL</span>
+            <span class="ticker__price">$178</span>
+            <span class="ticker__change ticker__change--down">-0.9%</span>
+          </div>
+          <div class="ticker__divider" aria-hidden="true"></div>
+          <div class="ticker__item">
+            <span class="ticker__symbol">BNB</span>
+            <span class="ticker__price">$598</span>
+            <span class="ticker__change ticker__change--up">+3.1%</span>
+          </div>
+          <!-- Catatan: harga di atas adalah contoh/simulasi, bukan harga real-time -->
+          <span class="ticker__note">* Contoh harga — bukan data real-time</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         APA ITU CRYPTO
+         Penjelasan dasar dengan blok info visual.
+         Layout: teks di kiri, info-cards di kanan (Grid).
+    ============================================= -->
+    <section class="what-is section" id="what-is-crypto">
+      <div class="container">
+        <div class="what-is__inner">
+
+          <!-- Kolom kiri: penjelasan teks -->
+          <div class="what-is__text">
+            <p class="section__label">Dasar-Dasar</p>
+            <h2 class="section__title">Apa itu Cryptocurrency?</h2>
+            <p>
+              Cryptocurrency (mata uang kripto) adalah <strong>uang digital</strong> yang
+              menggunakan teknologi kriptografi untuk mengamankan transaksi. Tidak ada bank
+              atau pemerintah yang mengelolanya — semuanya diatur oleh jaringan komputer
+              yang disebut <strong>blockchain</strong>.
+            </p>
+            <p>
+              Bayangkan buku kas bersama yang dipegang ribuan komputer sekaligus — tidak
+              ada satu pun pihak yang bisa memalsukan atau menghapus catatannya.
+              Itulah prinsip dasar blockchain.
+            </p>
+
+            <!-- Poin-poin kunci dengan ikon -->
+            <ul class="key-points">
+              <li>
+                <span class="key-points__icon" aria-hidden="true">🔗</span>
+                <div>
+                  <strong>Terdesentralisasi</strong>
+                  <p>Tidak dikontrol satu entitas tunggal seperti bank sentral.</p>
+                </div>
+              </li>
+              <li>
+                <span class="key-points__icon" aria-hidden="true">🔒</span>
+                <div>
+                  <strong>Transparan & Aman</strong>
+                  <p>Semua transaksi tercatat dan dapat diverifikasi siapa saja.</p>
+                </div>
+              </li>
+              <li>
+                <span class="key-points__icon" aria-hidden="true">🌍</span>
+                <div>
+                  <strong>Tanpa Batas Geografis</strong>
+                  <p>Kirim uang ke mana saja di dunia dalam hitungan menit.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Kolom kanan: kartu-kartu fakta -->
+          <div class="what-is__facts">
+            <!-- Setiap fact-card adalah blok angka/statistik menarik -->
+            <div class="fact-card fact-card--primary">
+              <span class="fact-card__icon" aria-hidden="true">📅</span>
+              <strong class="fact-card__num">2009</strong>
+              <p class="fact-card__label">Bitcoin pertama kali diluncurkan oleh Satoshi Nakamoto</p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-card__icon" aria-hidden="true">🪙</span>
+              <strong class="fact-card__num">20.000+</strong>
+              <p class="fact-card__label">Jenis cryptocurrency yang beredar di pasar global</p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-card__icon" aria-hidden="true">👛</span>
+              <strong class="fact-card__num">420 Juta</strong>
+              <p class="fact-card__label">Pengguna crypto di seluruh dunia pada 2024</p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-card__icon" aria-hidden="true">⚡</span>
+              <strong class="fact-card__num">10 Menit</strong>
+              <p class="fact-card__label">Rata-rata waktu konfirmasi transaksi Bitcoin</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         5 CRYPTO POPULER
+         Grid kartu — satu kartu per coin.
+         Setiap kartu memiliki warna tema coin tersebut.
+    ============================================= -->
+    <section class="coins section" id="coins">
+      <div class="container">
+        <p class="section__label">Kenali Lebih Dekat</p>
+        <h2 class="section__title">5 Cryptocurrency Populer</h2>
+        <p class="section__sub">
+          Dari yang tertua hingga yang tercepat — ini adalah coin yang paling banyak
+          digunakan dan diperdagangkan di dunia.
+        </p>
+
+        <!-- Grid kartu coin -->
+        <div class="coins__grid">
+
+          <!-- ======= Bitcoin (BTC) ======= -->
+          <!-- data-coin digunakan CSS untuk memberi warna tema -->
+          <article class="coin-card" data-coin="btc">
+            <div class="coin-card__header">
+              <!-- Logo coin menggunakan emoji/simbol teks -->
+              <div class="coin-card__logo" aria-hidden="true">₿</div>
+              <div>
+                <h3 class="coin-card__name">Bitcoin</h3>
+                <span class="coin-card__symbol">BTC</span>
+              </div>
+              <!-- Badge peringkat -->
+              <span class="coin-card__rank">#1</span>
+            </div>
+            <p class="coin-card__desc">
+              Cryptocurrency pertama dan paling berharga. Diciptakan 2009 oleh
+              Satoshi Nakamoto (anonim). Sering disebut "emas digital" karena
+              pasokannya terbatas hanya <strong>21 juta koin</strong>.
+            </p>
+            <!-- Statistik mini -->
+            <div class="coin-card__stats">
+              <div class="coin-stat">
+                <span class="coin-stat__label">Diluncurkan</span>
+                <span class="coin-stat__val">2009</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Pasokan Maks</span>
+                <span class="coin-stat__val">21 Juta</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Kegunaan</span>
+                <span class="coin-stat__val">Penyimpan Nilai</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- ======= Ethereum (ETH) ======= -->
+          <article class="coin-card" data-coin="eth">
+            <div class="coin-card__header">
+              <div class="coin-card__logo" aria-hidden="true">Ξ</div>
+              <div>
+                <h3 class="coin-card__name">Ethereum</h3>
+                <span class="coin-card__symbol">ETH</span>
+              </div>
+              <span class="coin-card__rank">#2</span>
+            </div>
+            <p class="coin-card__desc">
+              Lebih dari sekadar uang digital — Ethereum adalah <strong>platform
+              smart contract</strong>. Developer bisa membangun aplikasi terdesentralisasi
+              (dApps) di atasnya. Fondasi dari ekosistem DeFi dan NFT.
+            </p>
+            <div class="coin-card__stats">
+              <div class="coin-stat">
+                <span class="coin-stat__label">Diluncurkan</span>
+                <span class="coin-stat__val">2015</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Pendiri</span>
+                <span class="coin-stat__val">Vitalik Buterin</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Kegunaan</span>
+                <span class="coin-stat__val">Smart Contract</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- ======= BNB ======= -->
+          <article class="coin-card" data-coin="bnb">
+            <div class="coin-card__header">
+              <div class="coin-card__logo" aria-hidden="true">◈</div>
+              <div>
+                <h3 class="coin-card__name">BNB</h3>
+                <span class="coin-card__symbol">BNB</span>
+              </div>
+              <span class="coin-card__rank">#4</span>
+            </div>
+            <p class="coin-card__desc">
+              Token asli dari Binance, bursa crypto terbesar di dunia. Bisa digunakan
+              untuk <strong>membayar biaya transaksi</strong> di Binance dengan diskon,
+              serta menjadi tulang punggung ekosistem BNB Chain.
+            </p>
+            <div class="coin-card__stats">
+              <div class="coin-stat">
+                <span class="coin-stat__label">Diluncurkan</span>
+                <span class="coin-stat__val">2017</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Pembuat</span>
+                <span class="coin-stat__val">Binance</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Kegunaan</span>
+                <span class="coin-stat__val">Fee & Ekosistem</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- ======= Solana (SOL) ======= -->
+          <article class="coin-card" data-coin="sol">
+            <div class="coin-card__header">
+              <div class="coin-card__logo" aria-hidden="true">◎</div>
+              <div>
+                <h3 class="coin-card__name">Solana</h3>
+                <span class="coin-card__symbol">SOL</span>
+              </div>
+              <span class="coin-card__rank">#5</span>
+            </div>
+            <p class="coin-card__desc">
+              Dikenal sebagai blockchain <strong>tercepat dan termurah</strong> —
+              mampu memproses hingga 65.000 transaksi per detik dengan biaya kurang
+              dari $0,001. Populer untuk NFT, DeFi, dan gaming blockchain.
+            </p>
+            <div class="coin-card__stats">
+              <div class="coin-stat">
+                <span class="coin-stat__label">Diluncurkan</span>
+                <span class="coin-stat__val">2020</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Kecepatan</span>
+                <span class="coin-stat__val">65.000 TPS</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Keunggulan</span>
+                <span class="coin-stat__val">Cepat & Murah</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- ======= USDT (Tether) ======= -->
+          <article class="coin-card" data-coin="usdt">
+            <div class="coin-card__header">
+              <div class="coin-card__logo" aria-hidden="true">₮</div>
+              <div>
+                <h3 class="coin-card__name">Tether</h3>
+                <span class="coin-card__symbol">USDT</span>
+              </div>
+              <span class="coin-card__rank">#3</span>
+            </div>
+            <p class="coin-card__desc">
+              <strong>Stablecoin</strong> — harganya selalu dipatok 1:1 dengan
+              Dollar AS. Tidak naik-turun seperti crypto lain. Digunakan sebagai
+              "tempat aman" saat pasar bergejolak dan untuk transfer nilai antara
+              bursa tanpa risiko volatilitas.
+            </p>
+            <div class="coin-card__stats">
+              <div class="coin-stat">
+                <span class="coin-stat__label">Diluncurkan</span>
+                <span class="coin-stat__val">2014</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Dipatok ke</span>
+                <span class="coin-stat__val">US Dollar</span>
+              </div>
+              <div class="coin-stat">
+                <span class="coin-stat__label">Tipe</span>
+                <span class="coin-stat__val">Stablecoin</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         CARA MULAI TRADING
+         4 langkah berurutan — ditampilkan sebagai
+         timeline horizontal dengan nomor langkah besar.
+    ============================================= -->
+    <section class="how-to section" id="how-to-start">
+      <div class="container">
+        <p class="section__label">Panduan Pemula</p>
+        <h2 class="section__title">Cara Mulai Trading Crypto</h2>
+        <p class="section__sub">
+          Empat langkah sederhana dari nol hingga bisa melakukan transaksi
+          pertama Anda dengan aman.
+        </p>
+
+        <!-- Grid 4 langkah -->
+        <div class="steps__grid">
+
+          <!-- Langkah 1 -->
+          <div class="step">
+            <!-- Nomor langkah besar sebagai elemen dekoratif -->
+            <div class="step__number" aria-hidden="true">01</div>
+            <div class="step__icon" aria-hidden="true">🎓</div>
+            <h3 class="step__title">Pelajari Dulu</h3>
+            <p class="step__desc">
+              Jangan terburu-buru beli. Pahami dulu apa itu blockchain, bagaimana
+              crypto bekerja, dan apa perbedaan Bitcoin dengan altcoin.
+              Gunakan sumber terpercaya seperti whitepaper resmi coin.
+            </p>
+            <ul class="step__tips">
+              <li>Baca whitepaper Bitcoin (bitcoin.org)</li>
+              <li>Ikuti komunitas terpercaya</li>
+              <li>Hindari "tips" investasi dari orang asing</li>
+            </ul>
+          </div>
+
+          <!-- Langkah 2 -->
+          <div class="step">
+            <div class="step__number" aria-hidden="true">02</div>
+            <div class="step__icon" aria-hidden="true">🏦</div>
+            <h3 class="step__title">Pilih Exchange Resmi</h3>
+            <p class="step__desc">
+              Exchange adalah tempat membeli dan menjual crypto. Pilih yang terdaftar
+              resmi di OJK/Bappebti jika beroperasi di Indonesia.
+              Verifikasi identitas (KYC) biasanya diperlukan.
+            </p>
+            <ul class="step__tips">
+              <li>Cek izin Bappebti untuk exchange lokal</li>
+              <li>Exchange populer: Indodax, Tokocrypto, Pintu</li>
+              <li>Aktifkan autentikasi dua faktor (2FA)</li>
+            </ul>
+          </div>
+
+          <!-- Langkah 3 -->
+          <div class="step">
+            <div class="step__number" aria-hidden="true">03</div>
+            <div class="step__icon" aria-hidden="true">💰</div>
+            <h3 class="step__title">Mulai dengan Modal Kecil</h3>
+            <p class="step__desc">
+              Deposit dana ke exchange. Mulai dengan jumlah yang <strong>siap
+              Anda hilangkan sepenuhnya</strong> — ini bukan saran menakut-nakuti,
+              tapi prinsip manajemen risiko yang wajib dipahami pemula.
+            </p>
+            <ul class="step__tips">
+              <li>Mulai dari Rp 100.000 – 500.000</li>
+              <li>Jangan investasi lebih dari 5-10% aset</li>
+              <li>Jangan pakai uang darurat atau pinjaman</li>
+            </ul>
+          </div>
+
+          <!-- Langkah 4 -->
+          <div class="step">
+            <div class="step__number" aria-hidden="true">04</div>
+            <div class="step__icon" aria-hidden="true">📊</div>
+            <h3 class="step__title">Beli & Pantau</h3>
+            <p class="step__desc">
+              Lakukan pembelian pertama. Pilih coin yang sudah Anda pahami.
+              Pantau portofolio secara berkala — jangan terlalu sering cek harga,
+              karena volatilitas bisa memicu keputusan emosional.
+            </p>
+            <ul class="step__tips">
+              <li>Dollar Cost Averaging (DCA) lebih aman dari lump sum</li>
+              <li>Simpan seed phrase wallet dengan aman</li>
+              <li>Pertimbangkan cold wallet untuk jumlah besar</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         RISIKO YANG PERLU DIKETAHUI
+         Section peringatan — background berbeda (merah gelap)
+         untuk memberikan sinyal visual "hati-hati".
+    ============================================= -->
+    <section class="risks section" id="risks">
+      <div class="container">
+        <p class="section__label section__label--warning">Penting Dibaca</p>
+        <h2 class="section__title">Risiko yang Perlu Diketahui</h2>
+        <p class="section__sub">
+          Crypto bisa menguntungkan, tapi juga sangat berisiko.
+          Pahami ini sebelum berinvestasi sepeser pun.
+        </p>
+
+        <!-- Grid kartu risiko -->
+        <div class="risks__grid">
+
+          <div class="risk-card">
+            <div class="risk-card__icon" aria-hidden="true">📉</div>
+            <h3 class="risk-card__title">Volatilitas Ekstrem</h3>
+            <p>
+              Harga crypto bisa turun <strong>50–80%</strong> dalam hitungan minggu,
+              atau bahkan dalam sehari. Bitcoin pernah turun dari $69.000 ke $16.000
+              dalam satu tahun (2022). Ini bukan saham biasa.
+            </p>
+          </div>
+
+          <div class="risk-card">
+            <div class="risk-card__icon" aria-hidden="true">🎭</div>
+            <h3 class="risk-card__title">Penipuan & Scam</h3>
+            <p>
+              Industri crypto penuh scam: proyek palsu, skema Ponzi, rug pull, dan
+              phishing. Jika ada yang menjanjikan <strong>profit pasti</strong> atau
+              meminta private key Anda — itu sudah pasti penipuan.
+            </p>
+          </div>
+
+          <div class="risk-card">
+            <div class="risk-card__icon" aria-hidden="true">⚖️</div>
+            <h3 class="risk-card__title">Ketidakpastian Regulasi</h3>
+            <p>
+              Regulasi crypto berubah cepat di berbagai negara. Di Indonesia,
+              crypto diakui sebagai aset komoditas, tapi statusnya terus berkembang.
+              Kebijakan baru bisa mempengaruhi nilai aset Anda secara drastis.
+            </p>
+          </div>
+
+          <div class="risk-card">
+            <div class="risk-card__icon" aria-hidden="true">🔑</div>
+            <h3 class="risk-card__title">Kehilangan Akses Permanen</h3>
+            <p>
+              Jika Anda kehilangan <strong>private key atau seed phrase</strong>,
+              tidak ada "lupa password" — aset Anda hilang selamanya. Sekitar
+              20% dari semua Bitcoin sudah hilang karena alasan ini.
+            </p>
+          </div>
+
+          <div class="risk-card">
+            <div class="risk-card__icon" aria-hidden="true">🧠</div>
+            <h3 class="risk-card__title">FOMO & Keputusan Emosional</h3>
+            <p>
+              Fear Of Missing Out (takut ketinggalan) adalah musuh terbesar investor
+              pemula. Membeli saat harga sedang "panas" karena terpengaruh tren
+              sosial media adalah cara paling cepat untuk rugi.
+            </p>
+          </div>
+
+          <div class="risk-card">
+            <div class="risk-card__icon" aria-hidden="true">💧</div>
+            <h3 class="risk-card__title">Risiko Likuiditas</h3>
+            <p>
+              Altcoin kecil mungkin sulit dijual saat pasar lesu karena tidak ada
+              pembeli. Berbeda dengan saham atau valas, tidak ada market maker
+              yang wajib membeli aset Anda kapanpun.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Kotak peringatan tegas di bawah grid -->
+        <div class="disclaimer">
+          <span class="disclaimer__icon" aria-hidden="true">⚠️</span>
+          <p>
+            <strong>Bukan Saran Finansial:</strong> Seluruh konten di halaman ini
+            bersifat edukatif semata. Selalu lakukan riset mandiri (DYOR — Do Your
+            Own Research) dan konsultasikan dengan penasihat keuangan berlisensi
+            sebelum berinvestasi.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =============================================
+         NEWSLETTER / KONTAK
+         Form email dengan desain clean.
+         <form> dengan action="#" tidak mengirim data
+         ke mana-mana — hanya demonstrasi struktur HTML.
+    ============================================= -->
+    <section class="newsletter section" id="newsletter">
+      <div class="container">
+        <div class="newsletter__inner">
+
+          <!-- Sisi kiri: teks ajakan -->
+          <div class="newsletter__text">
+            <p class="section__label">Tetap Update</p>
+            <h2 class="section__title">Dapatkan Panduan Gratis</h2>
+            <p>
+              Daftarkan email Anda dan kami akan mengirimkan materi belajar crypto
+              mingguan — dari analisis dasar hingga tips keamanan wallet.
+            </p>
+
+            <!-- Daftar keuntungan berlangganan -->
+            <ul class="newsletter__perks">
+              <li>
+                <span aria-hidden="true">✅</span>
+                Panduan pemula dalam format PDF
+              </li>
+              <li>
+                <span aria-hidden="true">✅</span>
+                Ringkasan berita crypto mingguan
+              </li>
+              <li>
+                <span aria-hidden="true">✅</span>
+                Tips keamanan & manajemen risiko
+              </li>
+              <li>
+                <span aria-hidden="true">✅</span>
+                Gratis selamanya, bisa unsubscribe kapanpun
+              </li>
+            </ul>
+          </div>
+
+          <!-- Sisi kanan: form -->
+          <div class="newsletter__form-wrap">
+            <!-- action="#" = form tidak dikirim ke mana-mana (hanya demonstrasi) -->
+            <!-- novalidate dihapus agar browser validasi bawaan aktif -->
+            <form class="newsletter__form" id="newsletterForm" action="#" method="post">
+              <h3 class="form__title">Daftar Sekarang</h3>
+
+              <!-- Grup field: label + input selalu dipasangkan via 'for' & 'id' -->
+              <div class="form__group">
+                <!-- for="nama" menghubungkan label ke input dengan id="nama" -->
+                <label for="nama" class="form__label">Nama Lengkap</label>
+                <input
+                  type="text"
+                  id="nama"
+                  name="nama"
+                  class="form__input"
+                  placeholder="contoh: Budi Santoso"
+                  required
+                  autocomplete="name"
+                />
+              </div>
+
+              <div class="form__group">
+                <label for="email" class="form__label">Alamat Email</label>
+                <!-- type="email": browser akan validasi format email secara otomatis -->
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form__input"
+                  placeholder="contoh: budi@email.com"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="form__group">
+                <label for="level" class="form__label">Level Pengetahuan</label>
+                <!-- <select> untuk pilihan terbatas -->
+                <select id="level" name="level" class="form__select">
+                  <option value="">-- Pilih level Anda --</option>
+                  <option value="beginner">Pemula — belum pernah beli crypto</option>
+                  <option value="intermediate">Menengah — sudah pernah trading</option>
+                  <option value="advanced">Mahir — ingin tips lebih dalam</option>
+                </select>
+              </div>
+
+              <div class="form__group">
+                <label for="pesan" class="form__label">Pertanyaan / Pesan (opsional)</label>
+                <!-- <textarea> untuk teks panjang multi-baris -->
+                <textarea
+                  id="pesan"
+                  name="pesan"
+                  class="form__textarea"
+                  rows="3"
+                  placeholder="Apa yang paling ingin Anda pelajari tentang crypto?"
+                ></textarea>
+              </div>
+
+              <!-- Checkbox persetujuan — elemen form yang sering dilupakan pemula -->
+              <div class="form__checkbox-group">
+                <input type="checkbox" id="agree" name="agree" required />
+                <label for="agree">
+                  Saya setuju menerima email edukasi. Tidak ada spam, bisa berhenti
+                  berlangganan kapanpun.
+                </label>
+              </div>
+
+              <!-- Tombol submit -->
+              <button type="submit" class="btn btn--accent btn--full">
+                Daftar Gratis Sekarang
+              </button>
+
+              <!-- Pesan sukses — tersembunyi, ditampilkan JS setelah submit -->
+              <p class="form__success" id="formSuccess" aria-live="polite">
+                🎉 Terima kasih! Cek email Anda untuk panduan pertama.
+              </p>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="navbar__logo-icon">₿</span>
+        <span>CryptoLearn</span>
+      </div>
+      <p class="footer__copy">
+        &copy; 2026 CryptoLearn. Konten bersifat edukatif — bukan saran investasi.
+      </p>
+      <nav class="footer__links" aria-label="Link footer">
+        <a href="#what-is-crypto">Apa itu Crypto</a>
+        <a href="#coins">Coin Populer</a>
+        <a href="#risks">Risiko</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- =============================================
+       JAVASCRIPT
+       Tiga fungsi:
+       1. Hamburger menu mobile
+       2. Navbar berubah setelah scroll
+       3. Intercept submit form — tampilkan pesan sukses
+  ============================================= -->
+  <script>
+    /* ——— 1. Hamburger Menu ——— */
+    const toggle = document.getElementById('menuToggle');
+    const menu   = document.getElementById('navMenu');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.classList.toggle('active');
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Tutup menu saat link diklik
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ——— 2. Navbar "scrolled" class ———
+       IntersectionObserver lebih efisien daripada event scroll
+       karena tidak terpicu setiap pixel scroll */
+    const navbar = document.getElementById('navbar');
+    const heroSection = document.querySelector('.hero');
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Jika hero tidak lagi terlihat (user sudah scroll melewatinya), tambah .scrolled
+        navbar.classList.toggle('scrolled', !entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(heroSection);
+
+    /* ——— 3. Form Submit ——— */
+    const form        = document.getElementById('newsletterForm');
+    const successMsg  = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', (e) => {
+      // Hentikan perilaku default form (reload halaman)
+      e.preventDefault();
+      // Tampilkan pesan sukses
+      successMsg.classList.add('visible');
+      // Reset isi form
+      form.reset();
+      // Sembunyikan pesan setelah 5 detik
+      setTimeout(() => successMsg.classList.remove('visible'), 5000);
+    });
+  </script>
+
+</body>
+</html>

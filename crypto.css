@@ -1,0 +1,1220 @@
+/* =============================================
+   crypto.css — Belajar Crypto untuk Pemula
+   Komentar lengkap untuk tujuan pembelajaran.
+
+   STRUKTUR FILE:
+   1.  Reset & Variabel CSS
+   2.  Utilitas & Komponen Dasar
+   3.  Tombol (Buttons)
+   4.  Navbar
+   5.  Hero
+   6.  Apa itu Crypto
+   7.  Coin Populer
+   8.  Cara Mulai Trading (Steps)
+   9.  Risiko
+   10. Newsletter / Form
+   11. Footer
+   12. Responsif (Media Queries)
+   13. Animasi & Keyframes
+============================================= */
+
+
+/* =============================================
+   1. RESET & VARIABEL CSS
+
+   box-sizing: border-box — padding & border dihitung
+   DI DALAM ukuran elemen, bukan menambah lebar.
+   Contoh: div lebar 200px dengan padding 20px
+   tetap berukuran 200px total (bukan 240px).
+============================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* :root = elemen <html>
+   Variabel CSS (custom properties) didefinisikan di sini
+   agar nilai warna/ukuran tidak tersebar dan mudah diubah. */
+:root {
+  /* === Palet Warna Crypto === */
+  /* Warna gelap untuk hero dan elemen premium */
+  --clr-dark:        #0a0e1a;   /* Hampir hitam — background hero */
+  --clr-dark-2:      #111827;   /* Abu gelap — background section */
+  --clr-dark-card:   #1a2035;   /* Kartu di atas background gelap */
+
+  /* Warna aksen (orange/kuning keemasan — identik dengan Bitcoin) */
+  --clr-accent:      #f59e0b;   /* Amber/emas */
+  --clr-accent-lt:   #fcd34d;   /* Amber lebih terang */
+  --clr-accent-dk:   #d97706;   /* Amber lebih gelap (untuk hover) */
+
+  /* Warna section terang */
+  --clr-bg:          #ffffff;
+  --clr-bg-subtle:   #f9fafb;
+  --clr-border:      #e5e7eb;
+
+  /* Warna teks */
+  --clr-text:        #111827;
+  --clr-text-muted:  #6b7280;
+  --clr-text-light:  rgba(255,255,255,0.75);  /* Teks di atas background gelap */
+
+  /* Warna per-coin — digunakan oleh atribut data-coin di CSS */
+  --clr-btc:   #f7931a;   /* Orange Bitcoin */
+  --clr-eth:   #627eea;   /* Biru Ethereum */
+  --clr-bnb:   #fffefb;   /* Kuning BNB */
+  --clr-sol:   #9945ff;   /* Ungu Solana */
+  --clr-usdt:  #26a17b;   /* Hijau Tether */
+
+  /* Warna peringatan */
+  --clr-warning: #ef4444;   /* Merah untuk section risiko */
+
+  /* === Tipografi === */
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* === Radius Sudut === */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+
+  /* === Bayangan === */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg:  0 20px 48px rgba(0,0,0,.18);
+  --shadow-glow: 0 0 30px rgba(245,158,11,.25);  /* Cahaya emas di sekitar elemen */
+
+  /* === Transisi === */
+  --ease: 0.25s ease;
+}
+
+/* scroll-behavior: smooth — klik link anchor (#coins dll)
+   akan animasi scroll halus, bukan langsung loncat */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--clr-text);
+  background-color: var(--clr-bg);
+  overflow-x: hidden;   /* Cegah scrollbar horizontal yang tidak sengaja */
+}
+
+img { max-width: 100%; display: block; }
+ul  { list-style: none; }
+a   { text-decoration: none; color: inherit; }
+
+/* =============================================
+   2. UTILITAS & KOMPONEN DASAR
+============================================= */
+
+/* Container: pembatas lebar konten agar tidak
+   membentang penuh di layar besar */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;   /* Sama dengan margin-left: auto; margin-right: auto */
+  padding-inline: 1.5rem;
+}
+
+/* Padding vertikal konsisten untuk semua section */
+.section {
+  padding-block: 5.5rem;   /* padding-top dan padding-bottom sekaligus */
+}
+
+/* Label kecil berwarna di atas setiap judul section */
+.section__label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;   /* Spasi huruf lebar = kesan label/tag */
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: 0.6rem;
+}
+
+/* Varian label merah untuk section risiko */
+.section__label--warning {
+  color: var(--clr-warning);
+}
+
+/* Judul section — clamp() = font size responsif tanpa media query:
+   clamp(minimum, ideal berdasarkan viewport, maksimum) */
+.section__title {
+  font-size: clamp(1.75rem, 4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--clr-text);
+  margin-bottom: 1rem;
+}
+
+/* Sub-judul abu-abu di bawah judul section */
+.section__sub {
+  font-size: 1.05rem;
+  color: var(--clr-text-muted);
+  max-width: 58ch;   /* ch = lebar karakter '0' — membatasi panjang baris optimal */
+  margin-bottom: 3rem;
+}
+
+/* =============================================
+   3. TOMBOL (Buttons)
+
+   Semua tombol berbagi kelas .btn (base),
+   lalu modifier kelas menimpa gaya tertentu.
+   Pola ini disebut BEM (Block Element Modifier).
+============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--ease);
+  white-space: nowrap;   /* Teks tombol tidak pindah baris */
+}
+
+/* Tombol aksen — emas/amber, paling mencolok */
+.btn--accent {
+  background: var(--clr-accent);
+  color: var(--clr-dark);   /* Teks gelap di atas background kuning */
+}
+.btn--accent:hover {
+  background: var(--clr-accent-lt);
+  transform: translateY(-2px);   /* Naik 2px saat hover — efek interaktif */
+  box-shadow: var(--shadow-glow);
+}
+
+/* Tombol outline untuk background gelap (hero) */
+.btn--outline-light {
+  border-color: rgba(255,255,255,.4);
+  color: #fff;
+}
+.btn--outline-light:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,.08);
+}
+
+/* Modifier ukuran besar */
+.btn--lg {
+  padding: 0.9rem 2.2rem;
+  font-size: 1rem;
+}
+
+/* Modifier lebar penuh — untuk tombol dalam form */
+.btn--full {
+  width: 100%;
+}
+
+
+/* =============================================
+   4. NAVBAR
+
+   Mulai transparan di atas hero, berubah gelap
+   saat user scroll (kelas .scrolled ditambah JS).
+   position: sticky + top: 0 = menempel di atas.
+============================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Awalnya transparan — hanya border bawah tipis */
+  background: transparent;
+  transition: background var(--ease), backdrop-filter var(--ease),
+              box-shadow var(--ease);
+}
+
+/* Kelas .scrolled ditambahkan JS saat hero tidak terlihat */
+.navbar.scrolled {
+  background: rgba(10, 14, 26, 0.92);
+  /* backdrop-filter: blur — efek "kaca buram" di atas konten di belakangnya */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* Flex row: logo kiri, tombol hamburger tengah, menu kanan */
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+/* Logo teks: ikon + nama */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+/* Ikon simbol Bitcoin — berwarna aksen */
+.navbar__logo-icon {
+  color: var(--clr-accent);
+  font-size: 1.4rem;
+}
+
+/* Menu link navigasi */
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+.navbar__menu a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--clr-text-light);
+  transition: color var(--ease);
+}
+.navbar__menu a:hover {
+  color: var(--clr-accent);
+}
+
+/* Hamburger toggle — disembunyikan di desktop */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.navbar__toggle span {
+  display: block;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+/* Animasi hamburger → X saat menu terbuka */
+.navbar__toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.navbar__toggle.active span:nth-child(2) { opacity: 0; }
+.navbar__toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+
+/* =============================================
+   5. HERO
+
+   Full-height dengan background gelap bergradien.
+   Grid dekoratif di latar menggunakan CSS background-image.
+============================================= */
+.hero {
+  position: relative;
+  min-height: 100svh;   /* svh: viewport height dengan memperhitungkan address bar mobile */
+  background: var(--clr-dark);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Grid pola kotak-kotak di background hero —
+   dibuat hanya dengan CSS background-image (tanpa gambar) */
+.hero__grid {
+  position: absolute;
+  inset: 0;   /* Sama dengan top:0;right:0;bottom:0;left:0 */
+  /* Dua gradien radial untuk efek cahaya, plus pola grid */
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 40%, rgba(245,158,11,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(99,102,241,.12) 0%, transparent 50%),
+    /* Pola grid dibuat dari gradient transparan yang berulang */
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: auto, auto, 50px 50px, 50px 50px;
+  pointer-events: none;   /* Grid tidak mengganggu klik pengguna */
+}
+
+/* Konten teks di atas grid */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  padding-block: 7rem 4rem;
+}
+
+/* Lencana "Panduan Lengkap untuk Pemula" */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245,158,11,.12);
+  border: 1px solid rgba(245,158,11,.25);
+  color: var(--clr-accent-lt);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.6s ease both;
+}
+
+/* Titik hijau berkedip dalam badge (menunjukkan "live/aktif") */
+.hero__badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  /* animation: nama-keyframe durasi timing-function repeat */
+  animation: pulse 2s infinite;
+}
+
+/* Judul hero dua baris */
+.hero__title {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+/* Baris kedua judul berwarna aksen amber */
+.hero__title-accent {
+  color: var(--clr-accent);
+}
+
+/* Tagline di bawah judul */
+.hero__tagline {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--clr-text-light);
+  max-width: 52ch;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+/* Kelompok tombol CTA */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+/* ——— Ticker Harga Simulasi ———
+   Deretan angka harga di bawah CTA */
+.ticker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-md);
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ticker__symbol {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.5);
+  letter-spacing: 0.05em;
+}
+
+.ticker__price {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Persentase perubahan — hijau untuk naik, merah untuk turun */
+.ticker__change {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-sm);
+}
+.ticker__change--up   { color: #4ade80; background: rgba(74,222,128,.12); }
+.ticker__change--down { color: #f87171; background: rgba(248,113,113,.12); }
+
+.ticker__divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,.1);
+}
+
+.ticker__note {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,.3);
+  width: 100%;   /* Pindah ke baris baru */
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+
+
+/* =============================================
+   6. APA ITU CRYPTO
+
+   Layout dua kolom: teks penjelasan + grid fakta.
+   CSS Grid dengan grid-template-columns otomatis.
+============================================= */
+.what-is {
+  background: var(--clr-bg-subtle);
+}
+
+/* Grid dua kolom asimetris: teks lebih lebar dari grid fakta */
+.what-is__inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 5rem;
+  align-items: start;   /* Rata atas, bukan rata tengah */
+}
+
+.what-is__text .section__title { margin-bottom: 1rem; }
+.what-is__text p { color: var(--clr-text-muted); margin-bottom: 1rem; }
+.what-is__text p:last-of-type { margin-bottom: 2rem; }
+
+/* Daftar poin kunci dengan ikon di kiri */
+.key-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.key-points li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.key-points__icon {
+  font-size: 1.5rem;
+  /* flex-shrink: 0 mencegah ikon menyusut saat teks panjang */
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.key-points li strong {
+  display: block;
+  color: var(--clr-text);
+  margin-bottom: 0.15rem;
+}
+.key-points li p {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  margin: 0 !important;
+}
+
+/* Grid 2×2 kartu fakta di kolom kanan */
+.what-is__facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Kartu fakta: angka besar + label */
+.fact-card {
+  background: #fff;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.fact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Kartu pertama — aksen warna amber */
+.fact-card--primary {
+  background: var(--clr-accent);
+  border-color: var(--clr-accent);
+}
+.fact-card--primary .fact-card__num,
+.fact-card--primary .fact-card__label {
+  color: var(--clr-dark);
+}
+
+.fact-card__icon { font-size: 1.5rem; }
+
+.fact-card__num {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--clr-text);
+  line-height: 1;
+}
+
+.fact-card__label {
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+  line-height: 1.4;
+}
+
+
+/* =============================================
+   7. COIN POPULER
+
+   Grid 5 kartu — 3 di baris pertama, 2 di baris kedua.
+   Warna tema tiap kartu diatur via atribut data-coin.
+   Selector CSS: [data-coin="btc"] { ... }
+============================================= */
+.coins {
+  background: var(--clr-bg);
+}
+
+/* auto-fill: isi sebanyak mungkin kolom, min 280px per kolom */
+.coins__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Kartu coin dasar */
+.coin-card {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  transition: transform var(--ease), box-shadow var(--ease);
+  background: #fff;
+  /* Garis aksen kiri — warnanya diatur tiap kartu di bawah */
+  border-left: 4px solid var(--coin-color, var(--clr-border));
+}
+.coin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Warna tema per coin menggunakan variabel --coin-color */
+.coin-card[data-coin="btc"]  { --coin-color: var(--clr-btc);  }
+.coin-card[data-coin="eth"]  { --coin-color: var(--clr-eth);  }
+.coin-card[data-coin="bnb"]  { --coin-color: var(--clr-bnb);  }
+.coin-card[data-coin="sol"]  { --coin-color: var(--clr-sol);  }
+.coin-card[data-coin="usdt"] { --coin-color: var(--clr-usdt); }
+
+/* Header kartu: logo + nama + simbol + badge rank */
+.coin-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Logo coin: lingkaran berwarna dengan simbol di tengah */
+.coin-card__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--coin-color, #e5e7eb);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.coin-card__name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  line-height: 1.2;
+}
+.coin-card__symbol {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+}
+
+/* Badge peringkat (#1, #2, dst) di kanan atas header */
+.coin-card__rank {
+  margin-left: auto;   /* Dorong ke kanan */
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--coin-color, var(--clr-text-muted));
+  background: color-mix(in srgb, var(--coin-color, #e5e7eb) 12%, transparent);
+  /* color-mix(): fungsi CSS modern untuk mencampur warna */
+  border: 1px solid color-mix(in srgb, var(--coin-color, #e5e7eb) 25%, transparent);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.6rem;
+}
+
+.coin-card__desc {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+/* Stats mini di bawah deskripsi */
+.coin-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding-top: 1rem;
+  /* border-top dengan warna aksen tipis */
+  border-top: 1px solid color-mix(in srgb, var(--coin-color, #e5e7eb) 20%, transparent);
+}
+
+.coin-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.coin-stat__label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--clr-text-muted);
+}
+.coin-stat__val {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+
+/* =============================================
+   8. CARA MULAI TRADING (Steps)
+
+   Background gelap — kontras dengan section
+   sebelum dan sesudahnya. Empat kartu langkah
+   dengan nomor besar sebagai dekorasi.
+============================================= */
+.how-to {
+  background: var(--clr-dark-2);
+}
+
+/* Judul dan label di section gelap berwarna terang */
+.how-to .section__label { color: var(--clr-accent); }
+.how-to .section__title { color: #fff; }
+.how-to .section__sub   { color: var(--clr-text-light); }
+
+/* Grid 4 kolom — di tablet jadi 2, di mobile jadi 1 */
+.steps__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.step {
+  background: var(--clr-dark-card);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;   /* Cegah nomor besar meluber */
+  transition: transform var(--ease), border-color var(--ease);
+}
+.step:hover {
+  transform: translateY(-4px);
+  border-color: rgba(245,158,11,.3);
+}
+
+/* Nomor langkah besar sebagai watermark dekorasi di latar */
+.step__number {
+  position: absolute;
+  top: -0.5rem;
+  right: 0.75rem;
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(245,158,11,.06);   /* Sangat transparan — hanya bayangan */
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;   /* Tidak bisa di-select/copy */
+}
+
+/* Ikon emoji di atas judul */
+.step__icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.step__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.step__desc {
+  font-size: 0.85rem;
+  color: var(--clr-text-light);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Tips dalam setiap langkah */
+.step__tips {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.step__tips li {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,.45);
+  padding-left: 1rem;
+  position: relative;
+}
+/* Bullet kecil menggunakan pseudo-element ::before */
+.step__tips li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--clr-accent);
+}
+
+
+/* =============================================
+   9. RISIKO
+
+   Background putih dengan kartu bergaris merah.
+   Pesan disclaimer tegas di bagian bawah.
+============================================= */
+.risks {
+  background: var(--clr-bg-subtle);
+}
+
+/* Grid otomatis 3 kolom — menyesuaikan diri */
+.risks__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.risk-card {
+  background: #fff;
+  border: 1px solid var(--clr-border);
+  /* Garis atas merah sebagai sinyal peringatan */
+  border-top: 3px solid var(--clr-warning);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.risk-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.risk-card__icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.risk-card__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: 0.6rem;
+}
+
+.risk-card p {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+}
+
+/* Kotak disclaimer tegas */
+.disclaimer {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: rgba(239,68,68,.06);
+  border: 1px solid rgba(239,68,68,.2);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.disclaimer__icon { font-size: 1.5rem; flex-shrink: 0; }
+
+.disclaimer p {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+.disclaimer strong { color: var(--clr-warning); }
+
+
+/* =============================================
+   10. NEWSLETTER / FORM
+
+   Layout dua kolom: teks di kiri, form di kanan.
+   Formulir dengan berbagai jenis input HTML.
+============================================= */
+.newsletter {
+  background: var(--clr-dark);
+}
+
+.newsletter .section__label { color: var(--clr-accent); }
+.newsletter .section__title { color: #fff; }
+
+.newsletter__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* Kolom kiri: teks */
+.newsletter__text p {
+  color: var(--clr-text-light);
+  margin-bottom: 2rem;
+}
+
+/* Daftar keuntungan berlangganan */
+.newsletter__perks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.newsletter__perks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--clr-text-light);
+}
+
+/* Kolom kanan: form putih di atas background gelap */
+.newsletter__form-wrap {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.form__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: 1.5rem;
+}
+
+/* Setiap pasangan label+input */
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Label form — wajib dipasangkan dengan input via atribut 'for'/'id' */
+.form__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--clr-text);
+}
+
+/* Style dasar shared oleh input, select, dan textarea */
+.form__input,
+.form__select,
+.form__textarea {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  color: var(--clr-text);
+  background: var(--clr-bg-subtle);
+  transition: border-color var(--ease), box-shadow var(--ease);
+  /* -webkit-appearance: none — hapus style bawaan browser (terutama Safari) */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Saat elemen form difokus (diklik/tab) — outline biru diganti dengan border aksen */
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  outline: none;   /* Hapus outline default browser */
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(245,158,11,.15);
+}
+
+/* Placeholder — teks abu abu dalam input kosong */
+.form__input::placeholder,
+.form__textarea::placeholder {
+  color: var(--clr-text-muted);
+  font-size: 0.85rem;
+}
+
+/* Textarea: resize hanya vertikal, tidak horizontal */
+.form__textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Grup checkbox + label — disusun horizontal */
+.form__checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+.form__checkbox-group input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  accent-color: var(--clr-accent);   /* Warna centang saat checked */
+}
+.form__checkbox-group label {
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+  line-height: 1.5;
+}
+
+/* Pesan sukses — tersembunyi secara default */
+.form__success {
+  display: none;   /* Disembunyikan */
+  text-align: center;
+  color: #059669;   /* Hijau */
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.75rem;
+  background: rgba(5,150,105,.08);
+  border-radius: var(--radius-md);
+  margin-top: 1rem;
+}
+
+/* Ketika JS menambahkan kelas .visible, pesan muncul */
+.form__success.visible {
+  display: block;
+}
+
+
+/* =============================================
+   11. FOOTER
+============================================= */
+.footer {
+  background: var(--clr-dark);
+  /* Garis atas tipis memisahkan footer dari newsletter */
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-block: 2rem;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.footer__copy {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,.35);
+}
+
+.footer__links {
+  display: flex;
+  gap: 1.5rem;
+}
+.footer__links a {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,.35);
+  transition: color var(--ease);
+}
+.footer__links a:hover { color: var(--clr-accent); }
+
+
+/* =============================================
+   12. RESPONSIF — Media Queries
+
+   Pendekatan: Desktop-first.
+   Kita mulai dari tampilan desktop, lalu sesuaikan
+   untuk layar yang lebih kecil menggunakan max-width.
+
+   Breakpoints:
+   960px  — tablet landscape
+   768px  — tablet portrait / small tablet
+   600px  — perbatasan mobile
+   480px  — mobile kecil
+============================================= */
+
+/* ——— Tablet Landscape (≤ 960px) ——— */
+@media (max-width: 960px) {
+
+  /* Steps: 4 kolom → 2 kolom */
+  .steps__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Risiko: 3 kolom → 2 kolom */
+  .risks__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* What is: 2 kolom → 1 kolom vertikal */
+  .what-is__inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  /* Newsletter: 2 kolom → 1 kolom */
+  .newsletter__inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+/* ——— Tablet / Mobile Besar (≤ 768px) ——— */
+@media (max-width: 768px) {
+
+  /* Tampilkan tombol hamburger */
+  .navbar__toggle {
+    display: flex;
+  }
+
+  /* Sembunyikan menu, siap muncul dari atas saat .open */
+  .navbar__menu {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--clr-dark);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    flex-direction: column;
+    gap: 0;
+    padding-block: 0.5rem;
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  /* Saat JS menambah .open — menu muncul */
+  .navbar__menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navbar__menu a {
+    padding: 0.9rem 1.5rem;
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    font-size: 1rem;
+  }
+  .navbar__menu a:last-child {
+    border-bottom: none;
+    margin: 0.5rem 1.5rem;
+    width: auto;
+  }
+
+  /* Coin grid: auto-fill minimum 240px */
+  .coins__grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  /* Section padding lebih kecil */
+  .section { padding-block: 4rem; }
+}
+
+/* ——— Mobile (≤ 600px) ——— */
+@media (max-width: 600px) {
+
+  /* Risiko: 2 kolom → 1 kolom */
+  .risks__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Steps: 2 kolom → 1 kolom */
+  .steps__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Facts: 2 kolom → 1 kolom */
+  .what-is__facts {
+    grid-template-columns: 1fr;
+  }
+
+  /* Coin stats: 3 kolom → 1 kolom */
+  .coin-card__stats {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  /* Tombol hero: vertikal dan penuh lebar */
+  .hero__actions {
+    flex-direction: column;
+  }
+  .hero__actions .btn {
+    width: 100%;
+  }
+
+  /* Ticker: tampilkan hanya 2 item */
+  .ticker__divider:nth-of-type(3),
+  .ticker__item:nth-of-type(4) {
+    display: none;
+  }
+
+  /* Footer: terpusat vertikal */
+  .footer__inner {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+
+/* =============================================
+   13. ANIMASI & KEYFRAMES
+
+   @keyframes: mendefinisikan pergerakan animasi
+   dari satu state ke state lain.
+
+   Cara baca: 'from' = awal, 'to' = akhir.
+   Bisa juga pakai persentase: 0%, 50%, 100%.
+============================================= */
+
+/* fadeUp: elemen muncul dari bawah sambil fade-in
+   Digunakan pada badge, judul, dan tagline hero */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* pulse: titik hijau berkedip di dalam hero badge
+   Menggunakan box-shadow untuk efek cahaya membesar */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(74, 222, 128, 0);
+  }
+}
