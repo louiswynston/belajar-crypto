@@ -41,7 +41,7 @@
 :root {
   /* === Palet Warna Crypto === */
   /* Warna gelap untuk hero dan elemen premium */
-  --clr-dark:        #0a0e1a;   /* Hampir hitam — background hero */
+  --clr-dark:        #15224b;   /* Hampir hitam — background hero */
   --clr-dark-2:      #111827;   /* Abu gelap — background section */
   --clr-dark-card:   #1a2035;   /* Kartu di atas background gelap */
 
@@ -61,7 +61,7 @@
   --clr-text-light:  rgba(255,255,255,0.75);  /* Teks di atas background gelap */
 
   /* Warna per-coin — digunakan oleh atribut data-coin di CSS */
-  --clr-btc:   #f7931a;   /* Orange Bitcoin */
+  --clr-btc:   #dd04ed;   /* Orange Bitcoin */
   --clr-eth:   #627eea;   /* Biru Ethereum */
   --clr-bnb:   #fffefb;   /* Kuning BNB */
   --clr-sol:   #9945ff;   /* Ungu Solana */
@@ -96,7 +96,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font);
-  font-size: 1rem;
+  font-size: 1.0rem;
   line-height: 1.7;
   color: var(--clr-text);
   background-color: var(--clr-bg);
