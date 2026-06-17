@@ -1218,3 +1218,8 @@ a   { text-decoration: none; color: inherit; }
     box-shadow: 0 0 0 5px rgba(74, 222, 128, 0);
   }
 }
+
+.what-is__text a {
+    color: var(--clr-accent);
+    text-decoration: underline;
+}
