@@ -763,16 +763,32 @@
     const form        = document.getElementById('newsletterForm');
     const successMsg  = document.getElementById('formSuccess');
 
-    form.addEventListener('submit', (e) => {
-      // Hentikan perilaku default form (reload halaman)
-      e.preventDefault();
-      // Tampilkan pesan sukses
-      successMsg.classList.add('visible');
-      // Reset isi form
-      form.reset();
-      // Sembunyikan pesan setelah 5 detik
-      setTimeout(() => successMsg.classList.remove('visible'), 5000);
+    form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const nama = document.getElementById('nama').value;
+  const email = document.getElementById('email').value;
+
+  try {
+    const response = await fetch('http://127.0.0.1:8000/daftar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nama, email })
     });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      successMsg.textContent = '🎉 ' + data.pesan;
+      successMsg.classList.add('visible');
+      form.reset();
+      setTimeout(() => successMsg.classList.remove('visible'), 5000);
+    }
+  } catch (error) {
+    successMsg.textContent = '❌ Gagal terhubung ke server.';
+    successMsg.classList.add('visible');
+  }
+});
 
         // Ambil harga crypto real-time
     async function ambilHargaCrypto() {
