@@ -12,10 +12,11 @@
    7.  Coin Populer
    8.  Cara Mulai Trading (Steps)
    9.  Risiko
-   10. Newsletter / Form
-   11. Footer
-   12. Responsif (Media Queries)
-   13. Animasi & Keyframes
+   10. FAQ
+   11. Newsletter / Form
+   12. Footer
+   13. Responsif (Media Queries)
+   14. Animasi & Keyframes
 ============================================= */
 
 
@@ -854,7 +855,64 @@ a   { text-decoration: none; color: inherit; }
 
 
 /* =============================================
-   10. NEWSLETTER / FORM
+   10. FAQ
+
+   Akordeon sederhana dengan <details> — tanpa JavaScript.
+============================================= */
+.faq {
+  background: var(--clr-bg);
+}
+
+.faq__list {
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq__item {
+  background: #fff;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow var(--ease);
+}
+.faq__item[open] {
+  box-shadow: var(--shadow-sm);
+}
+
+.faq__item summary {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after {
+  content: '+';
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--clr-accent);
+  flex-shrink: 0;
+}
+.faq__item[open] summary::after { content: '−'; }
+
+.faq__answer {
+  padding: 0 1.5rem 1.25rem;
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+}
+
+
+/* =============================================
+   11. NEWSLETTER / FORM
 
    Layout dua kolom: teks di kiri, form di kanan.
    Formulir dengan berbagai jenis input HTML.
@@ -1003,7 +1061,7 @@ a   { text-decoration: none; color: inherit; }
 
 
 /* =============================================
-   11. FOOTER
+   12. FOOTER
 ============================================= */
 .footer {
   background: var(--clr-dark);
