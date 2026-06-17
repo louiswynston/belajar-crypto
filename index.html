@@ -90,25 +90,25 @@
         <div class="ticker" aria-label="Contoh harga crypto (simulasi)">
           <div class="ticker__item">
             <span class="ticker__symbol">BTC</span>
-            <span class="ticker__price">$67,450</span>
+            <span class="ticker__price" id="harga-btc">Loading...</span>
             <span class="ticker__change ticker__change--up">+2.4%</span>
           </div>
           <div class="ticker__divider" aria-hidden="true"></div>
           <div class="ticker__item">
             <span class="ticker__symbol">ETH</span>
-            <span class="ticker__price">$3,520</span>
+            <span class="ticker__price" id="harga-eth">Loading...</span>
             <span class="ticker__change ticker__change--up">+1.8%</span>
           </div>
           <div class="ticker__divider" aria-hidden="true"></div>
           <div class="ticker__item">
             <span class="ticker__symbol">SOL</span>
-            <span class="ticker__price">$178</span>
+            <span class="ticker__price" id="harga-sol">Loading...</span>
             <span class="ticker__change ticker__change--down">-0.9%</span>
           </div>
           <div class="ticker__divider" aria-hidden="true"></div>
           <div class="ticker__item">
             <span class="ticker__symbol">BNB</span>
-            <span class="ticker__price">$598</span>
+            <span class="ticker__price" id="harga-bnb">Loading...</span>
             <span class="ticker__change ticker__change--up">+3.1%</span>
           </div>
           <!-- Catatan: harga di atas adalah contoh/simulasi, bukan harga real-time -->
@@ -763,6 +763,24 @@
       // Sembunyikan pesan setelah 5 detik
       setTimeout(() => successMsg.classList.remove('visible'), 5000);
     });
+
+        // Ambil harga crypto real-time
+    async function ambilHargaCrypto() {
+        const coins = [
+            { id: "harga-btc", pasangan: "BTC-USD" },
+            { id: "harga-eth", pasangan: "ETH-USD" },
+            { id: "harga-sol", pasangan: "SOL-USD" },
+            { id: "harga-bnb", pasangan: "BNB-USD" }
+        ];
+
+        for (const coin of coins) {
+            const response = await fetch("https://api.coinbase.com/v2/prices/" + coin.pasangan + "/spot");
+            const data = await response.json();
+            document.getElementById(coin.id).textContent = "$" + parseFloat(data.data.amount).toFixed(2);
+        }
+    }
+
+ambilHargaCrypto();
   </script>
 
 </body>
