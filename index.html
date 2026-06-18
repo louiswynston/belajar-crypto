@@ -71,6 +71,7 @@
         <a href="#how-to-start">Cara Mulai</a>
         <a href="#risks">Risiko</a>
         <a href="#faq">FAQ</a>
+        <a href="#quiz">Quiz</a>
         <a href="#newsletter" class="btn btn--accent">Mulai Belajar</a>
       </nav>
 
@@ -640,6 +641,54 @@
     </section>
 
     <!-- =============================================
+         QUIZ INTERAKTIF
+         10 pertanyaan pilihan ganda — satu per layar.
+    ============================================= -->
+    <section class="quiz section" id="quiz">
+      <div class="container">
+        <p class="section__label">Uji Pemahaman</p>
+        <h2 class="section__title">Quiz Crypto Pemula</h2>
+        <p class="section__sub">
+          Uji seberapa paham Anda tentang dasar-dasar crypto.
+          Pilih jawaban, baca penjelasannya, lalu lanjut ke pertanyaan berikutnya.
+        </p>
+
+        <div class="quiz__card" id="quizCard">
+
+          <!-- Progress bar -->
+          <div class="quiz__progress" id="quizProgress">
+            <p class="quiz__progress-text" id="quizProgressText">Pertanyaan 1 dari 10</p>
+            <div class="quiz__progress-bar" role="progressbar" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1" id="quizProgressBar">
+              <div class="quiz__progress-fill" id="quizProgressFill"></div>
+            </div>
+          </div>
+
+          <!-- Tampilan pertanyaan -->
+          <div class="quiz__body" id="quizBody">
+            <h3 class="quiz__question" id="quizQuestion"></h3>
+            <div class="quiz__options" id="quizOptions" role="group" aria-label="Pilihan jawaban"></div>
+            <div class="quiz__explanation" id="quizExplanation" hidden aria-live="polite"></div>
+            <button type="button" class="btn btn--accent btn--full quiz__next" id="quizNext" disabled>
+              Berikutnya
+            </button>
+          </div>
+
+          <!-- Tampilan skor akhir -->
+          <div class="quiz__result" id="quizResult" hidden>
+            <div class="quiz__result-icon" id="quizResultIcon" aria-hidden="true">🏆</div>
+            <h3 class="quiz__result-title" id="quizResultTitle">Selesai!</h3>
+            <p class="quiz__result-score" id="quizResultScore"></p>
+            <p class="quiz__result-message" id="quizResultMessage"></p>
+            <button type="button" class="btn btn--quiz-restart btn--full" id="quizRestart">
+              Ulangi Quiz
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
          NEWSLETTER / KONTAK
          Form email dengan desain clean.
          <form> dengan action="#" tidak mengirim data
@@ -782,6 +831,7 @@
         <a href="#coins">Coin Populer</a>
         <a href="#risks">Risiko</a>
         <a href="#faq">FAQ</a>
+        <a href="#quiz">Quiz</a>
       </nav>
     </div>
   </footer>
@@ -876,6 +926,351 @@
     }
 
 ambilHargaCrypto();
+
+    /* ——— 4. Quiz Interaktif ——— */
+    const quizQuestions = [
+      {
+        question: 'Apa itu blockchain?',
+        options: [
+          'Aplikasi untuk trading crypto',
+          'Buku kas digital bersama yang tercatat di banyak komputer',
+          'Mata uang digital yang dikeluarkan pemerintah',
+          'Aplikasi dompet crypto di HP'
+        ],
+        correct: 1,
+        explanation: 'Blockchain adalah buku besar digital terdistribusi. Setiap transaksi tercatat di banyak komputer sekaligus sehingga sulit dimanipulasi.'
+      },
+      {
+        question: 'Siapa yang pertama kali menciptakan Bitcoin?',
+        options: [
+          'Vitalik Buterin',
+          'Elon Musk',
+          'Satoshi Nakamoto',
+          'Tim Binance'
+        ],
+        correct: 2,
+        explanation: 'Bitcoin diluncurkan tahun 2009 oleh Satoshi Nakamoto — nama samaran yang identitas aslinya belum diketahui secara pasti.'
+      },
+      {
+        question: 'Apa keunggulan utama Ethereum dibanding sekadar uang digital?',
+        options: [
+          'Harganya selalu stabil',
+          'Pasokannya dibatasi 21 juta koin',
+          'Menyediakan platform smart contract dan dApps',
+          'Hanya bisa dibeli di Indonesia'
+        ],
+        correct: 2,
+        explanation: 'Ethereum bukan hanya mata uang — ia adalah platform untuk smart contract, fondasi ekosistem DeFi dan NFT.'
+      },
+      {
+        question: 'Apa fungsi stablecoin seperti USDT?',
+        options: [
+          'Harganya selalu naik setiap bulan',
+          'Nilainya dipatok stabil, biasanya 1:1 dengan US Dollar',
+          'Tidak bisa diperdagangkan di bursa',
+          'Hanya digunakan untuk membayar listrik'
+        ],
+        correct: 1,
+        explanation: 'Stablecoin dirancang agar harganya stabil. USDT dipatok ke Dollar AS sehingga sering dipakai sebagai tempat aman saat pasar bergejolak.'
+      },
+      {
+        question: 'Apa itu seed phrase pada wallet crypto?',
+        options: [
+          'Kata sandi akun exchange',
+          'Kode OTP dari email',
+          'Kumpulan kata untuk memulihkan akses wallet',
+          'Username di platform trading'
+        ],
+        correct: 2,
+        explanation: 'Seed phrase adalah kunci cadangan wallet Anda. Jika hilang, aset bisa hilang selamanya — simpan di tempat aman dan jangan bagikan ke siapa pun.'
+      },
+      {
+        question: 'Bagaimana status crypto di Indonesia?',
+        options: [
+          'Alat pembayaran resmi seperti Rupiah',
+          'Dilarang sama sekali',
+          'Diakui sebagai aset komoditas',
+          'Saham perusahaan teknologi'
+        ],
+        correct: 2,
+        explanation: 'Di Indonesia, crypto diakui sebagai aset komoditas dan boleh diperdagangkan lewat bursa terdaftar Bappebti, bukan alat pembayaran resmi.'
+      },
+      {
+        question: 'Apa arti DYOR dalam dunia crypto?',
+        options: [
+          'Do Your Own Research — riset mandiri sebelum berinvestasi',
+          'Deposit Your Own Rupiah',
+          'Day Order On Request',
+          'Double Your Own Returns'
+        ],
+        correct: 0,
+        explanation: 'DYOR berarti lakukan riset sendiri. Jangan mengikuti tips investasi dari orang asing tanpa memahami risikonya.'
+      },
+      {
+        question: 'Apa risiko terbesar jika membagikan private key Anda?',
+        options: [
+          'Harga crypto turun drastis',
+          'Akun exchange dibekukan',
+          'Orang lain bisa mengambil aset Anda',
+          'Transaksi menjadi lebih lambat'
+        ],
+        correct: 2,
+        explanation: 'Private key = akses penuh ke aset. Siapa pun yang memilikinya bisa mengontrol wallet Anda. Tidak ada fitur "lupa password".'
+      },
+      {
+        question: 'Apa keunggulan Solana yang sering disebut?',
+        options: [
+          'Pasokan maksimal 21 juta koin',
+          'Dipatok 1:1 ke US Dollar',
+          'Transaksi cepat dengan biaya sangat rendah',
+          'Merupakan crypto pertama di dunia'
+        ],
+        correct: 2,
+        explanation: 'Solana dikenal sebagai blockchain cepat dan murah — mampu memproses ribuan transaksi per detik dengan biaya di bawah sen.'
+      },
+      {
+        question: 'Prinsip investasi crypto yang disarankan untuk pemula?',
+        options: [
+          'Investasikan seluruh tabungan sekaligus',
+          'Ikuti tips dari akun media sosial tanpa riset',
+          'Pinjam uang saat harga sedang naik (FOMO)',
+          'Mulai dengan modal kecil yang siap hilang'
+        ],
+        correct: 3,
+        explanation: 'Manajemen risiko penting: mulai kecil, jangan pakai uang darurat, dan hanya investasikan dana yang siap Anda hilangkan.'
+      }
+    ];
+
+    const quizLabels = ['A', 'B', 'C', 'D'];
+    let quizIndex = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+    let quizTransitioning = false;
+
+    const quizReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const quizProgressText = document.getElementById('quizProgressText');
+    const quizProgressBar  = document.getElementById('quizProgressBar');
+    const quizProgressFill = document.getElementById('quizProgressFill');
+    const quizBody         = document.getElementById('quizBody');
+    const quizQuestion     = document.getElementById('quizQuestion');
+    const quizOptions      = document.getElementById('quizOptions');
+    const quizExplanation  = document.getElementById('quizExplanation');
+    const quizNext         = document.getElementById('quizNext');
+    const quizProgress     = document.getElementById('quizProgress');
+    const quizResult       = document.getElementById('quizResult');
+    const quizResultIcon   = document.getElementById('quizResultIcon');
+    const quizResultTitle  = document.getElementById('quizResultTitle');
+    const quizResultScore  = document.getElementById('quizResultScore');
+    const quizResultMessage = document.getElementById('quizResultMessage');
+    const quizRestart      = document.getElementById('quizRestart');
+
+    function updateQuizProgress() {
+      const current = quizIndex + 1;
+      const total = quizQuestions.length;
+      const percent = (current / total) * 100;
+
+      quizProgressText.textContent = 'Pertanyaan ' + current + ' dari ' + total;
+      quizProgressBar.setAttribute('aria-valuenow', current);
+      quizProgressFill.style.width = percent + '%';
+    }
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[quizIndex];
+      quizAnswered = false;
+      quizQuestion.textContent = q.question;
+      quizOptions.innerHTML = '';
+      quizExplanation.hidden = true;
+      quizExplanation.className = 'quiz__explanation';
+      quizExplanation.textContent = '';
+      quizNext.disabled = true;
+      quizNext.textContent = quizIndex < quizQuestions.length - 1 ? 'Berikutnya' : 'Lihat Skor';
+
+      q.options.forEach((option, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz__option';
+        btn.innerHTML = '<span class="quiz__option-label">' + quizLabels[i] + '</span><span>' + option + '</span>';
+        btn.addEventListener('click', () => selectQuizAnswer(i, btn));
+        quizOptions.appendChild(btn);
+      });
+
+      updateQuizProgress();
+    }
+
+    function animateQuizTransition(callback) {
+      if (quizTransitioning) return;
+      quizTransitioning = true;
+      quizNext.disabled = true;
+
+      if (quizReducedMotion) {
+        callback();
+        quizTransitioning = false;
+        return;
+      }
+
+      let exited = false;
+      const startEnter = () => {
+        if (exited) return;
+        exited = true;
+        quizBody.classList.remove('quiz__body--exit');
+        callback();
+        quizBody.classList.add('quiz__body--enter');
+
+        let entered = false;
+        const finishEnter = () => {
+          if (entered) return;
+          entered = true;
+          quizBody.classList.remove('quiz__body--enter');
+          quizTransitioning = false;
+        };
+
+        quizBody.addEventListener('animationend', function onEnter(e) {
+          if (e.target !== quizBody) return;
+          quizBody.removeEventListener('animationend', onEnter);
+          finishEnter();
+        });
+        setTimeout(finishEnter, 450);
+      };
+
+      quizBody.classList.add('quiz__body--exit');
+      quizBody.addEventListener('animationend', function onExit(e) {
+        if (e.target !== quizBody) return;
+        quizBody.removeEventListener('animationend', onExit);
+        startEnter();
+      });
+      setTimeout(startEnter, 350);
+    }
+
+    function selectQuizAnswer(index, clickedBtn) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+
+      const q = quizQuestions[quizIndex];
+      const isCorrect = index === q.correct;
+      if (isCorrect) quizScore++;
+
+      quizOptions.querySelectorAll('.quiz__option').forEach((btn, i) => {
+        btn.disabled = true;
+        btn.classList.add('quiz__option--disabled');
+        if (i === q.correct) btn.classList.add('quiz__option--correct');
+        else if (i === index) btn.classList.add('quiz__option--wrong');
+      });
+
+      quizExplanation.textContent = (isCorrect ? '✅ Benar! ' : '❌ Salah. ') + q.explanation;
+      quizExplanation.classList.add(isCorrect ? 'quiz__explanation--correct' : 'quiz__explanation--wrong');
+      quizExplanation.hidden = false;
+      quizNext.disabled = false;
+      clickedBtn.focus();
+    }
+
+    function showQuizResult() {
+      const revealResult = () => {
+        quizBody.hidden = true;
+        quizProgress.hidden = true;
+        quizResult.hidden = false;
+        quizResult.classList.remove('quiz__result--exit');
+        if (!quizReducedMotion) quizResult.classList.add('quiz__result--enter');
+      };
+
+      if (quizReducedMotion) {
+        revealResult();
+        fillQuizResult();
+        return;
+      }
+
+      let revealed = false;
+      const done = () => {
+        if (revealed) return;
+        revealed = true;
+        quizBody.classList.remove('quiz__body--exit');
+        revealResult();
+        fillQuizResult();
+      };
+
+      quizBody.classList.add('quiz__body--exit');
+      quizBody.addEventListener('animationend', function onExit(e) {
+        if (e.target !== quizBody) return;
+        quizBody.removeEventListener('animationend', onExit);
+        done();
+      });
+      setTimeout(done, 350);
+    }
+
+    function fillQuizResult() {
+      let message, icon;
+      if (quizScore <= 4) {
+        message = 'Pemula — masih banyak yang perlu dipelajari. Baca ulang panduan di halaman ini!';
+        icon = '📚';
+      } else if (quizScore <= 7) {
+        message = 'Lumayan — dasar-dasarnya sudah paham, terus dalami risiko dan keamanan wallet.';
+        icon = '👍';
+      } else {
+        message = 'Keren! Anda sudah memahami fondasi crypto dengan baik. Tetap waspada dan DYOR!';
+        icon = '🏆';
+      }
+
+      quizResultIcon.textContent = icon;
+      quizResultTitle.textContent = quizScore <= 4 ? 'Terus Belajar!' : quizScore <= 7 ? 'Bagus!' : 'Luar Biasa!';
+      quizResultScore.textContent = 'Skor Anda: ' + quizScore + ' / ' + quizQuestions.length;
+      quizResultMessage.textContent = message;
+    }
+
+    function resetQuiz() {
+      const restart = () => {
+        quizIndex = 0;
+        quizScore = 0;
+        quizAnswered = false;
+        quizResult.hidden = true;
+        quizResult.classList.remove('quiz__result--enter', 'quiz__result--exit');
+        quizBody.hidden = false;
+        quizProgress.hidden = false;
+        renderQuizQuestion();
+        if (!quizReducedMotion) {
+          quizBody.classList.add('quiz__body--enter');
+          quizBody.addEventListener('animationend', function onEnter(e) {
+            if (e.target !== quizBody) return;
+            quizBody.removeEventListener('animationend', onEnter);
+            quizBody.classList.remove('quiz__body--enter');
+          });
+        }
+      };
+
+      if (quizReducedMotion || quizResult.hidden) {
+        restart();
+        return;
+      }
+
+      let restarted = false;
+      const done = () => {
+        if (restarted) return;
+        restarted = true;
+        restart();
+      };
+
+      quizResult.classList.add('quiz__result--exit');
+      quizResult.addEventListener('animationend', function onExit(e) {
+        if (e.target !== quizResult) return;
+        quizResult.removeEventListener('animationend', onExit);
+        done();
+      });
+      setTimeout(done, 300);
+    }
+
+    quizNext.addEventListener('click', () => {
+      if (!quizAnswered || quizTransitioning) return;
+      if (quizIndex < quizQuestions.length - 1) {
+        animateQuizTransition(() => {
+          quizIndex++;
+          renderQuizQuestion();
+        });
+      } else {
+        showQuizResult();
+      }
+    });
+
+    quizRestart.addEventListener('click', resetQuiz);
+    renderQuizQuestion();
   </script>
 
 </body>
